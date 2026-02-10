@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/* ── Solve Pro Font Face Declarations ── */
+@font-face {
+  font-family: 'Solve Pro';
+  src: url('/fonts/Solve-Pro-Light.woff2') format('woff2'),
+       url('/fonts/Solve-Pro-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Solve Pro';
+  src: url('/fonts/Solve-Pro-Regular.woff2') format('woff2'),
+       url('/fonts/Solve-Pro-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Solve Pro';
+  src: url('/fonts/Solve-Pro-Medium.woff2') format('woff2'),
+       url('/fonts/Solve-Pro-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Solve Pro';
+  src: url('/fonts/Solve-Pro-Bold.woff2') format('woff2'),
+       url('/fonts/Solve-Pro-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Solve Pro';
+  src: url('/fonts/Solve-Pro-Extrabold.woff2') format('woff2'),
+       url('/fonts/Solve-Pro-Extrabold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Solventum Design Tokens ── */
+@theme {
+  --color-sol-dark-green: #01332b;
+  --color-sol-brand-green: #05dd4d;
+  --color-sol-white: #ffffff;
+  --color-sol-teal: #19a591;
+  --color-sol-medium-teal: #1ccf93;
+  --color-sol-light-teal: #bffde3;
+  --color-sol-gray: #e7e7e7;
+  --color-sol-hyperlink-teal: #0a7b6b;
+  --color-sol-light-gray: #f5f5f5;
+  --color-sol-medium-gray: #cbcbcb;
+  --color-sol-dark-gray: #6e6e6e;
+  --color-sol-text-gray: #3c3e3f;
+  --font-solve: 'Solve Pro', Inter, system-ui, -apple-system, sans-serif;
+}
+
+/* ── Base Styles ── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-solve);
+  color: var(--color-sol-text-gray);
+  background-color: var(--color-sol-white);
+  line-height: 1.6;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-sol-hyperlink-teal);
+  outline-offset: 2px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  height: 28px;
+}

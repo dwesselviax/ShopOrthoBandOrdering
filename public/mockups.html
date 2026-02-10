@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Band Ordering — Quantity Entry Mockups</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sol: {
+              'dark-green': '#01332b',
+              'brand-green': '#05dd4d',
+              teal: '#19a591',
+              'medium-teal': '#1ccf93',
+              'light-teal': '#bffde3',
+              gray: '#e7e7e7',
+              'hyperlink-teal': '#0a7b6b',
+              'light-gray': '#f5f5f5',
+              'medium-gray': '#cbcbcb',
+              'dark-gray': '#6e6e6e',
+              'text-gray': '#3c3e3f',
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { opacity: 1; height: 28px; }
+    .tab-active { background: #01332b; color: white; }
+    .tab-inactive { background: #f5f5f5; color: #3c3e3f; }
+    .fade-in { animation: fadeIn 0.2s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-white text-sol-text-gray">
+
+  <!-- Top selector bar -->
+  <div class="sticky top-0 z-50 border-b-2 border-sol-dark-green bg-sol-dark-green text-white shadow-lg">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <h1 class="text-lg font-bold">Quantity Entry — Design Options</h1>
+      <div class="flex gap-2">
+        <button onclick="showMockup('A')" id="btn-A"
+          class="mockup-btn rounded-md px-4 py-2 text-sm font-bold transition-all bg-sol-brand-green text-sol-dark-green">
+          Option A: Cards
+        </button>
+        <button onclick="showMockup('B')" id="btn-B"
+          class="mockup-btn rounded-md px-4 py-2 text-sm font-bold transition-all bg-white/20 hover:bg-white/30">
+          Option B: Add-to-List
+        </button>
+        <button onclick="showMockup('C')" id="btn-C"
+          class="mockup-btn rounded-md px-4 py-2 text-sm font-bold transition-all bg-white/20 hover:bg-white/30">
+          Option C: Filtered Table
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-5xl px-6 py-8">
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- OPTION A: Card per Position                                    -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div id="mockup-A">
+      <div class="mb-6">
+        <span class="inline-block rounded-full bg-sol-light-teal px-3 py-1 text-xs font-bold text-sol-dark-green mb-2">Option A</span>
+        <h2 class="text-2xl font-bold text-sol-dark-green">Card per Position</h2>
+        <p class="text-sm text-sol-dark-gray mt-1">Each position (Upper Right, Upper Left, etc.) gets its own card with a compact size grid. Only sizes with quantities &gt; 0 are highlighted.</p>
+      </div>
+
+      <!-- Summary bar -->
+      <div class="mb-6 flex items-center justify-between rounded-lg border border-sol-gray bg-sol-light-gray px-5 py-3">
+        <div class="flex items-center gap-6">
+          <div>
+            <span class="text-xs font-medium text-sol-dark-gray">Band Type</span>
+            <span class="ml-2 font-bold text-sol-dark-green">First Molars</span>
+          </div>
+          <div class="h-6 w-px bg-sol-medium-gray"></div>
+          <div>
+            <span class="text-xs font-medium text-sol-dark-gray">Total Bands</span>
+            <span class="ml-2 text-xl font-extrabold text-sol-dark-green" id="a-total">0</span>
+          </div>
+        </div>
+        <button onclick="clearAllA()" class="text-sm text-sol-dark-gray hover:text-red-600 transition-colors">Clear All</button>
+      </div>
+
+      <!-- Position cards (4-column layout for First Molars) -->
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2" id="a-cards">
+        <!-- Cards are rendered by JS -->
+      </div>
+
+      <!-- Comments -->
+      <div class="mt-6">
+        <label class="mb-2 block text-sm font-bold text-sol-dark-green">Comments <span class="font-normal text-sol-dark-gray">(optional)</span></label>
+        <textarea rows="2" placeholder="Add any special instructions..." class="w-full rounded-lg border border-sol-gray px-4 py-3 text-sm placeholder:text-sol-medium-gray focus:border-sol-hyperlink-teal focus:ring-1 focus:ring-sol-hyperlink-teal focus:outline-none"></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-6 flex items-center justify-between border-t border-sol-gray pt-6">
+        <button class="rounded-md border-2 border-sol-dark-green px-6 py-2.5 text-sm font-bold text-sol-dark-green hover:bg-sol-dark-green hover:text-white transition-colors">Back</button>
+        <button class="rounded-md bg-sol-dark-green px-8 py-3 text-sm font-bold text-white hover:bg-sol-dark-green/90 transition-all">Review Order</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- OPTION B: Add-to-List                                          -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div id="mockup-B" class="hidden">
+      <div class="mb-6">
+        <span class="inline-block rounded-full bg-sol-light-teal px-3 py-1 text-xs font-bold text-sol-dark-green mb-2">Option B</span>
+        <h2 class="text-2xl font-bold text-sol-dark-green">Add-to-List</h2>
+        <p class="text-sm text-sol-dark-gray mt-1">Start with an empty list. Click "Add Band" to pick a position, size, and quantity. The list grows as items are added. Great for small orders.</p>
+      </div>
+
+      <!-- Summary bar -->
+      <div class="mb-6 flex items-center justify-between rounded-lg border border-sol-gray bg-sol-light-gray px-5 py-3">
+        <div class="flex items-center gap-6">
+          <div>
+            <span class="text-xs font-medium text-sol-dark-gray">Band Type</span>
+            <span class="ml-2 font-bold text-sol-dark-green">First Molars</span>
+          </div>
+          <div class="h-6 w-px bg-sol-medium-gray"></div>
+          <div>
+            <span class="text-xs font-medium text-sol-dark-gray">Total Bands</span>
+            <span class="ml-2 text-xl font-extrabold text-sol-dark-green" id="b-total">0</span>
+          </div>
+        </div>
+        <button onclick="clearAllB()" class="text-sm text-sol-dark-gray hover:text-red-600 transition-colors">Clear All</button>
+      </div>
+
+      <!-- Band list -->
+      <div id="b-list" class="space-y-2">
+        <!-- Empty state shown by default -->
+      </div>
+      <div id="b-empty" class="rounded-lg border-2 border-dashed border-sol-medium-gray py-12 text-center">
+        <svg class="mx-auto mb-3 h-10 w-10 text-sol-medium-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
+        <p class="text-sm text-sol-dark-gray">No bands added yet</p>
+        <p class="text-xs text-sol-medium-gray mt-1">Click "Add Band" below to start building your order</p>
+      </div>
+
+      <!-- Add Band form (inline) -->
+      <div id="b-add-form" class="mt-4 hidden rounded-lg border border-sol-hyperlink-teal bg-sol-light-teal/20 p-4 fade-in">
+        <div class="grid grid-cols-4 gap-3">
+          <div>
+            <label class="mb-1 block text-xs font-bold text-sol-dark-green">Position</label>
+            <select id="b-position" class="w-full rounded border border-sol-gray px-3 py-2 text-sm focus:border-sol-hyperlink-teal focus:outline-none">
+              <option value="UpR">Upper Right</option>
+              <option value="UpL">Upper Left</option>
+              <option value="LoR">Lower Right</option>
+              <option value="LoL">Lower Left</option>
+            </select>
+          </div>
+          <div>
+            <label class="mb-1 block text-xs font-bold text-sol-dark-green">Size</label>
+            <select id="b-size" class="w-full rounded border border-sol-gray px-3 py-2 text-sm focus:border-sol-hyperlink-teal focus:outline-none">
+            </select>
+          </div>
+          <div>
+            <label class="mb-1 block text-xs font-bold text-sol-dark-green">Quantity</label>
+            <input type="number" id="b-qty" value="1" min="1" max="999" class="w-full rounded border border-sol-gray px-3 py-2 text-sm text-center focus:border-sol-hyperlink-teal focus:outline-none" />
+          </div>
+          <div class="flex items-end gap-2">
+            <button onclick="addBandB()" class="flex-1 rounded bg-sol-dark-green px-4 py-2 text-sm font-bold text-white hover:bg-sol-dark-green/90 transition-colors">Add</button>
+            <button onclick="cancelAddB()" class="rounded border border-sol-gray px-3 py-2 text-sm text-sol-dark-gray hover:bg-sol-gray transition-colors">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <button id="b-add-btn" onclick="showAddFormB()" class="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-sol-hyperlink-teal py-3 text-sm font-bold text-sol-hyperlink-teal hover:bg-sol-light-teal/20 transition-colors">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        Add Band
+      </button>
+
+      <!-- Comments -->
+      <div class="mt-6">
+        <label class="mb-2 block text-sm font-bold text-sol-dark-green">Comments <span class="font-normal text-sol-dark-gray">(optional)</span></label>
+        <textarea rows="2" placeholder="Add any special instructions..." class="w-full rounded-lg border border-sol-gray px-4 py-3 text-sm placeholder:text-sol-medium-gray focus:border-sol-hyperlink-teal focus:ring-1 focus:ring-sol-hyperlink-teal focus:outline-none"></textarea>
+      </div>
+
+      <div class="mt-6 flex items-center justify-between border-t border-sol-gray pt-6">
+        <button class="rounded-md border-2 border-sol-dark-green px-6 py-2.5 text-sm font-bold text-sol-dark-green hover:bg-sol-dark-green hover:text-white transition-colors">Back</button>
+        <button class="rounded-md bg-sol-dark-green px-8 py-3 text-sm font-bold text-white hover:bg-sol-dark-green/90 transition-all">Review Order</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- OPTION C: Compact Filtered Table                               -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div id="mockup-C" class="hidden">
+      <div class="mb-6">
+        <span class="inline-block rounded-full bg-sol-light-teal px-3 py-1 text-xs font-bold text-sol-dark-green mb-2">Option C</span>
+        <h2 class="text-2xl font-bold text-sol-dark-green">Compact Filtered Table</h2>
+        <p class="text-sm text-sol-dark-gray mt-1">The same table layout, but with size-range filter tabs and collapsible position sections to tame the 41-row monster.</p>
+      </div>
+
+      <!-- Summary bar -->
+      <div class="mb-6 flex items-center justify-between rounded-lg border border-sol-gray bg-sol-light-gray px-5 py-3">
+        <div class="flex items-center gap-6">
+          <div>
+            <span class="text-xs font-medium text-sol-dark-gray">Band Type</span>
+            <span class="ml-2 font-bold text-sol-dark-green">First Molars</span>
+          </div>
+          <div class="h-6 w-px bg-sol-medium-gray"></div>
+          <div>
+            <span class="text-xs font-medium text-sol-dark-gray">Total Bands</span>
+            <span class="ml-2 text-xl font-extrabold text-sol-dark-green" id="c-total">0</span>
+          </div>
+        </div>
+        <button onclick="clearAllC()" class="text-sm text-sol-dark-gray hover:text-red-600 transition-colors">Clear All</button>
+      </div>
+
+      <!-- Size range tabs -->
+      <div class="mb-4 flex flex-wrap gap-2" id="c-tabs">
+        <button onclick="setTabC('all')" class="tab-active rounded-full px-4 py-1.5 text-xs font-bold transition-colors" data-tab="all">All Sizes</button>
+        <button onclick="setTabC('22-26')" class="tab-inactive rounded-full px-4 py-1.5 text-xs font-bold transition-colors hover:bg-sol-gray" data-tab="22-26">22 – 26</button>
+        <button onclick="setTabC('27-31')" class="tab-inactive rounded-full px-4 py-1.5 text-xs font-bold transition-colors hover:bg-sol-gray" data-tab="27-31">27 – 31</button>
+        <button onclick="setTabC('32-36')" class="tab-inactive rounded-full px-4 py-1.5 text-xs font-bold transition-colors hover:bg-sol-gray" data-tab="32-36">32 – 36</button>
+        <button onclick="setTabC('37-42')" class="tab-inactive rounded-full px-4 py-1.5 text-xs font-bold transition-colors hover:bg-sol-gray" data-tab="37-42">37 – 42</button>
+        <button onclick="setTabC('has-qty')" class="tab-inactive rounded-full px-4 py-1.5 text-xs font-bold transition-colors hover:bg-sol-gray" data-tab="has-qty">With Quantities</button>
+      </div>
+
+      <!-- Collapsible position sections -->
+      <div id="c-sections" class="space-y-3">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Comments -->
+      <div class="mt-6">
+        <label class="mb-2 block text-sm font-bold text-sol-dark-green">Comments <span class="font-normal text-sol-dark-gray">(optional)</span></label>
+        <textarea rows="2" placeholder="Add any special instructions..." class="w-full rounded-lg border border-sol-gray px-4 py-3 text-sm placeholder:text-sol-medium-gray focus:border-sol-hyperlink-teal focus:ring-1 focus:ring-sol-hyperlink-teal focus:outline-none"></textarea>
+      </div>
+
+      <div class="mt-6 flex items-center justify-between border-t border-sol-gray pt-6">
+        <button class="rounded-md border-2 border-sol-dark-green px-6 py-2.5 text-sm font-bold text-sol-dark-green hover:bg-sol-dark-green hover:text-white transition-colors">Back</button>
+        <button class="rounded-md bg-sol-dark-green px-8 py-3 text-sm font-bold text-white hover:bg-sol-dark-green/90 transition-all">Review Order</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ── Shared Data ──
+    const POSITIONS_4COL = [
+      { key: 'UpR', label: 'Upper Right' },
+      { key: 'UpL', label: 'Upper Left' },
+      { key: 'LoR', label: 'Lower Right' },
+      { key: 'LoL', label: 'Lower Left' },
+    ];
+
+    function generateSizes(start = 22, end = 42) {
+      const sizes = [];
+      for (let s = start; s <= end; s++) {
+        sizes.push({ value: String(s), label: String(s) });
+        if (s < end) sizes.push({ value: s + '.', label: s + ' \u00BD' });
+      }
+      return sizes;
+    }
+    const ALL_SIZES = generateSizes();
+
+    // ── Mockup Navigation ──
+    function showMockup(id) {
+      ['A', 'B', 'C'].forEach(m => {
+        document.getElementById('mockup-' + m).classList.toggle('hidden', m !== id);
+        const btn = document.getElementById('btn-' + m);
+        if (m === id) {
+          btn.className = 'mockup-btn rounded-md px-4 py-2 text-sm font-bold transition-all bg-sol-brand-green text-sol-dark-green';
+        } else {
+          btn.className = 'mockup-btn rounded-md px-4 py-2 text-sm font-bold transition-all bg-white/20 hover:bg-white/30';
+        }
+      });
+    }
+
+    // ═══════════════════════════════════════════
+    //  OPTION A — Card per Position
+    // ═══════════════════════════════════════════
+    const aQty = {};
+
+    function renderCardsA() {
+      const container = document.getElementById('a-cards');
+      container.innerHTML = POSITIONS_4COL.map(pos => {
+        const posQty = ALL_SIZES.reduce((sum, s) => sum + (aQty[pos.key + s.value] || 0), 0);
+        return `
+          <div class="rounded-lg border border-sol-gray overflow-hidden">
+            <div class="flex items-center justify-between bg-sol-dark-green px-4 py-2.5">
+              <span class="font-bold text-white text-sm">${pos.label}</span>
+              <span class="rounded-full bg-sol-brand-green px-2.5 py-0.5 text-xs font-bold text-sol-dark-green">${posQty}</span>
+            </div>
+            <div class="p-3 grid grid-cols-7 gap-1.5 max-h-72 overflow-y-auto">
+              ${ALL_SIZES.map(s => {
+                const val = aQty[pos.key + s.value] || 0;
+                const highlight = val > 0 ? 'border-sol-hyperlink-teal bg-sol-light-teal' : 'border-sol-gray bg-white hover:bg-sol-light-gray';
+                return `
+                  <div class="relative rounded border ${highlight} p-1 text-center cursor-pointer transition-colors" onclick="promptQtyA('${pos.key}', '${s.value}', '${s.label}', this)">
+                    <div class="text-[10px] text-sol-dark-gray leading-tight">${s.label}</div>
+                    <div class="text-sm font-bold ${val > 0 ? 'text-sol-dark-green' : 'text-sol-medium-gray'}">${val || '-'}</div>
+                  </div>`;
+              }).join('')}
+            </div>
+          </div>`;
+      }).join('');
+      document.getElementById('a-total').textContent = Object.values(aQty).reduce((s, v) => s + v, 0);
+    }
+
+    function promptQtyA(posKey, sizeVal, sizeLabel, el) {
+      const current = aQty[posKey + sizeVal] || 0;
+      const input = prompt(`Quantity for ${POSITIONS_4COL.find(p=>p.key===posKey).label} — Size ${sizeLabel}:`, current);
+      if (input === null) return;
+      const parsed = Math.max(0, parseInt(input, 10) || 0);
+      if (parsed === 0) {
+        delete aQty[posKey + sizeVal];
+      } else {
+        aQty[posKey + sizeVal] = parsed;
+      }
+      renderCardsA();
+    }
+
+    function clearAllA() {
+      Object.keys(aQty).forEach(k => delete aQty[k]);
+      renderCardsA();
+    }
+
+    // ═══════════════════════════════════════════
+    //  OPTION B — Add-to-List
+    // ═══════════════════════════════════════════
+    const bItems = [];
+
+    function initB() {
+      const sel = document.getElementById('b-size');
+      sel.innerHTML = ALL_SIZES.map(s => `<option value="${s.value}">${s.label}</option>`).join('');
+    }
+
+    function showAddFormB() {
+      document.getElementById('b-add-form').classList.remove('hidden');
+      document.getElementById('b-add-btn').classList.add('hidden');
+      document.getElementById('b-qty').value = '1';
+    }
+
+    function cancelAddB() {
+      document.getElementById('b-add-form').classList.add('hidden');
+      document.getElementById('b-add-btn').classList.remove('hidden');
+    }
+
+    function addBandB() {
+      const pos = document.getElementById('b-position').value;
+      const size = document.getElementById('b-size').value;
+      const qty = Math.max(1, parseInt(document.getElementById('b-qty').value, 10) || 1);
+
+      // Check if same pos+size exists — if so, merge
+      const existing = bItems.find(i => i.pos === pos && i.size === size);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        bItems.push({ pos, size, qty });
+      }
+      cancelAddB();
+      renderListB();
+    }
+
+    function removeBandB(idx) {
+      bItems.splice(idx, 1);
+      renderListB();
+    }
+
+    function renderListB() {
+      const list = document.getElementById('b-list');
+      const empty = document.getElementById('b-empty');
+      const posMap = { UpR: 'Upper Right', UpL: 'Upper Left', LoR: 'Lower Right', LoL: 'Lower Left' };
+      const sizeMap = {};
+      ALL_SIZES.forEach(s => sizeMap[s.value] = s.label);
+
+      if (bItems.length === 0) {
+        list.innerHTML = '';
+        empty.classList.remove('hidden');
+      } else {
+        empty.classList.add('hidden');
+        list.innerHTML = bItems.map((item, idx) => `
+          <div class="flex items-center justify-between rounded-lg border border-sol-gray bg-white px-4 py-3 fade-in">
+            <div class="flex items-center gap-4">
+              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-sol-dark-green text-xs font-bold text-white">${idx + 1}</span>
+              <div>
+                <span class="font-bold text-sol-dark-green">${posMap[item.pos]}</span>
+                <span class="mx-2 text-sol-medium-gray">|</span>
+                <span class="text-sm text-sol-text-gray">Size ${sizeMap[item.size]}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="flex items-center gap-1">
+                <button onclick="changeBandQtyB(${idx}, -1)" class="rounded border border-sol-gray px-2 py-0.5 text-sm hover:bg-sol-gray transition-colors">&minus;</button>
+                <span class="w-8 text-center font-bold text-sol-dark-green">${item.qty}</span>
+                <button onclick="changeBandQtyB(${idx}, 1)" class="rounded border border-sol-gray px-2 py-0.5 text-sm hover:bg-sol-gray transition-colors">+</button>
+              </div>
+              <button onclick="removeBandB(${idx})" class="text-sol-dark-gray hover:text-red-600 transition-colors">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+      document.getElementById('b-total').textContent = bItems.reduce((s, i) => s + i.qty, 0);
+    }
+
+    function changeBandQtyB(idx, delta) {
+      bItems[idx].qty = Math.max(1, bItems[idx].qty + delta);
+      renderListB();
+    }
+
+    function clearAllB() {
+      bItems.length = 0;
+      renderListB();
+    }
+
+    // ═══════════════════════════════════════════
+    //  OPTION C — Compact Filtered Table
+    // ═══════════════════════════════════════════
+    const cQty = {};
+    let cTab = 'all';
+    const cCollapsed = {};
+
+    const SIZE_RANGES = {
+      'all': [22, 42],
+      '22-26': [22, 26],
+      '27-31': [27, 31],
+      '32-36': [32, 36],
+      '37-42': [37, 42],
+    };
+
+    function setTabC(tab) {
+      cTab = tab;
+      document.querySelectorAll('#c-tabs button').forEach(btn => {
+        btn.className = btn.dataset.tab === tab
+          ? 'tab-active rounded-full px-4 py-1.5 text-xs font-bold transition-colors'
+          : 'tab-inactive rounded-full px-4 py-1.5 text-xs font-bold transition-colors hover:bg-sol-gray';
+      });
+      renderSectionsC();
+    }
+
+    function toggleSectionC(posKey) {
+      cCollapsed[posKey] = !cCollapsed[posKey];
+      renderSectionsC();
+    }
+
+    function getFilteredSizesC() {
+      if (cTab === 'has-qty') {
+        return ALL_SIZES.filter(s =>
+          POSITIONS_4COL.some(p => (cQty[p.key + s.value] || 0) > 0)
+        );
+      }
+      const [lo, hi] = SIZE_RANGES[cTab] || [22, 42];
+      return ALL_SIZES.filter(s => {
+        const num = parseInt(s.value, 10);
+        return num >= lo && num <= hi;
+      });
+    }
+
+    function renderSectionsC() {
+      const filteredSizes = getFilteredSizesC();
+      const container = document.getElementById('c-sections');
+
+      if (cTab === 'has-qty' && filteredSizes.length === 0) {
+        container.innerHTML = `
+          <div class="rounded-lg border border-dashed border-sol-medium-gray py-8 text-center">
+            <p class="text-sm text-sol-dark-gray">No sizes have quantities entered yet.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = POSITIONS_4COL.map(pos => {
+        const posQty = filteredSizes.reduce((sum, s) => sum + (cQty[pos.key + s.value] || 0), 0);
+        const collapsed = cCollapsed[pos.key];
+        return `
+          <div class="rounded-lg border border-sol-gray overflow-hidden">
+            <button onclick="toggleSectionC('${pos.key}')" class="flex w-full items-center justify-between bg-sol-dark-green px-4 py-2.5 text-left">
+              <span class="font-bold text-white text-sm">${pos.label}</span>
+              <div class="flex items-center gap-3">
+                <span class="rounded-full bg-sol-brand-green px-2.5 py-0.5 text-xs font-bold text-sol-dark-green">${posQty}</span>
+                <svg class="h-4 w-4 text-white transition-transform ${collapsed ? '' : 'rotate-180'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </button>
+            ${collapsed ? '' : `
+            <div class="p-2">
+              <div class="grid grid-cols-${Math.min(filteredSizes.length, 7)} gap-1.5" style="grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));">
+                ${filteredSizes.map(s => {
+                  const val = cQty[pos.key + s.value] || 0;
+                  return `
+                    <div class="flex flex-col items-center rounded border ${val > 0 ? 'border-sol-hyperlink-teal bg-sol-light-teal' : 'border-sol-gray bg-white'} p-1.5">
+                      <span class="text-[10px] text-sol-dark-gray">${s.label}</span>
+                      <input type="number" min="0" max="999" value="${val || ''}" placeholder="0"
+                        onchange="updateCQty('${pos.key}', '${s.value}', this.value)"
+                        class="w-12 rounded border-0 bg-transparent text-center text-sm font-bold text-sol-dark-green focus:outline-none focus:ring-1 focus:ring-sol-hyperlink-teal" />
+                    </div>`;
+                }).join('')}
+              </div>
+            </div>`}
+          </div>`;
+      }).join('');
+
+      document.getElementById('c-total').textContent = Object.values(cQty).reduce((s, v) => s + v, 0);
+    }
+
+    function updateCQty(posKey, sizeVal, value) {
+      const parsed = Math.max(0, parseInt(value, 10) || 0);
+      if (parsed === 0) {
+        delete cQty[posKey + sizeVal];
+      } else {
+        cQty[posKey + sizeVal] = parsed;
+      }
+      renderSectionsC();
+    }
+
+    function clearAllC() {
+      Object.keys(cQty).forEach(k => delete cQty[k]);
+      renderSectionsC();
+    }
+
+    // ── Initialize ──
+    renderCardsA();
+    initB();
+    renderListB();
+    renderSectionsC();
+  </script>
+</body>
+</html>
